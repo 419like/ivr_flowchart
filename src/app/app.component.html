@@ -1,0 +1,9 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="display: flex;">
+  <div style="width:150px;border-right:1px;"></div>
+  <div class="contentBox">
+    <div class="item"  *ngFor="let k of objectKeys(treeData)" :style="{'left:'+item.x+'px;'}" (click)="onSelect(treeData[k])">
+      {{treeData[k].name}}
+    </div>
+  </div>
+</div>

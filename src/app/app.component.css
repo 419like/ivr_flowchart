@@ -1,0 +1,8 @@
+.item{
+	position: absolute;
+	
+}
+.contentBox{
+	flex:1;
+	position: relative;
+}

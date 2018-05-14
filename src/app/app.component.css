@@ -1,8 +1,13 @@
 .item{
 	position: absolute;
-	
+	background: rgba(0,0,0,.2)
 }
 .contentBox{
 	flex:1;
 	position: relative;
+	border:1px solid #666;
+	height:100%;
+}
+.choosen{
+	border:1px solid red;
 }

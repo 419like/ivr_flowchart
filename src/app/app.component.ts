@@ -39,7 +39,7 @@ export class AppComponent {
     end:'node3',
     text:'否'
   }]
-  a = 1
+  currentItemMove = false;
   currentItem = this.treeData.node1
   objectKeys(obj) {
     return Object.keys(obj);
@@ -47,5 +47,21 @@ export class AppComponent {
   onSelect(item){
   	this.currentItem = item;
   	console.log(this.currentItem);
+  }
+  onMouseDown(item,e){
+    this.currentItem = item;
+    this.currentItemMove = true;
+    console.log('aaa',item);
+    console.log(e);
+  }
+  onMouseUp(){
+    this.currentItemMove = false;
+  }
+  onMouseMove(e){
+    if(this.currentItemMove){
+      // console.log(e);
+      this.currentItem.x = e.clientX-200;
+      this.currentItem.y = e.clientY-0;
+    }
   }
 }

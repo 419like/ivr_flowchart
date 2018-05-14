@@ -1,12 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="display: flex;height:100%">
-	<div style="width:150px;border-right:1px;">
-		x:
-		<input [(ngModel)]="currentItem.x" placeholder="name"> y:
-		<input [(ngModel)]="currentItem.y" placeholder="name">
+	<div style="width:200px;border-right:1px;">
+		<div>
+			name:<input [(ngModel)]="currentItem.name" placeholder="name">
+		</div>
+		<div>
+			x:<input [(ngModel)]="currentItem.x" placeholder="name">
+		</div>
+		<div>
+			y:<input [(ngModel)]="currentItem.y" placeholder="name">
+		</div>
 	</div>
-	<div class="contentBox">
-		<div class="item" *ngFor="let k of objectKeys(treeData)" [ngStyle]="{'left':treeData[k].x+'px','top':treeData[k].y+'px'}" [ngClass]="{'choosen':treeData[k] == currentItem}" (click)="onSelect(treeData[k])">
+	<div class="contentBox" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp()">
+		<div class="item" *ngFor="let k of objectKeys(treeData)" [ngStyle]="{'left':treeData[k].x+'px','top':treeData[k].y+'px'}" [ngClass]="{'choosen':treeData[k] == currentItem}" (click)="onSelect(treeData[k])"  (mousedown)="onMouseDown(treeData[k],$event)" (mouseMove)="onMouseMove($event)">
 			{{treeData[k].name}}
 		</div>
 		<svg width="100%" height="100%">

@@ -2,29 +2,40 @@
 <div style="display: flex;height:100%">
 	<div style="width:200px;border-right:1px;">
 		<div>
-			name:<input [(ngModel)]="currentItem.name" placeholder="name">
+			name:
+			<input [(ngModel)]="currentItem.name">
 		</div>
 		<div>
-			x:<input [(ngModel)]="currentItem.x" placeholder="name">
+			parentNode:
+			<select [(ngModel)]="currentItem.parentNode">
+				<option value="node0">请选择</option> //此处用的是value，而不是[value]
+				<option *ngFor="let item of objectKeys(treeData)" [value]='treeData[item].id'>{{treeData[item].id}}</option>
+			</select>
 		</div>
 		<div>
-			y:<input [(ngModel)]="currentItem.y" placeholder="name">
+			x:
+			<input [(ngModel)]="currentItem.x">
+		</div>
+		<div>
+			y:
+			<input [(ngModel)]="currentItem.y">
 		</div>
 	</div>
 	<div class="contentBox" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp()">
-		<div class="item" *ngFor="let k of objectKeys(treeData)" [ngStyle]="{'left':treeData[k].x+'px','top':treeData[k].y+'px'}" [ngClass]="{'choosen':treeData[k] == currentItem}" (click)="onSelect(treeData[k])"  (mousedown)="onMouseDown(treeData[k],$event)" (mouseMove)="onMouseMove($event)">
-			{{treeData[k].name}}
+		<div class="item" *ngFor="let k of objectKeys(treeData)" [ngStyle]="{'left':treeData[k].x+'px','top':treeData[k].y+'px'}" [ngClass]="{'choosen':treeData[k] == currentItem}" (click)="onSelect(treeData[k])" (mousedown)="onMouseDown(treeData[k],$event)" (mouseMove)="onMouseMove($event)">
+			<div class="itemId">{{treeData[k].id}}</div>
+			<div>{{treeData[k].name}}</div>
 		</div>
 		<svg width="100%" height="100%">
 			<defs>
-				<marker id="arrow" markerUnits="strokeWidth" markerWidth="12" markerHeight="12" viewBox="0 0 12 12" refX="6" refY="6" orient="auto">
+				<marker id="arrow" markerUnits="strokeWidth" markerWidth="20" markerHeight="12" viewBox="0 0 20 12" refX="6" refY="6" orient="auto">
 					<path d="M2,2 L10,6 L2,10 L6,6 L2,2" style="fill: #000000;" />
 				</marker>
 			</defs>
 			<!-- <line *ngFor="let item of lineData" id="node1" [attr.x1]="treeData[item.start].x" [attr.y1]="treeData[item.start].y" [attr.x2]="treeData[item.end].x" [attr.y2]="treeData[item.end].y" style="stroke:rgb(99,99,99);stroke-width:2" marker-start="url(#arrow)" marker-mid="url(#arrow)" marker-end="url(#arrow)" /> -->
 			<!-- <line _ngcontent-c0="" id="node1"  style="stroke:rgb(99,99,99);stroke-width:2" x1="100" y1="0" x2="10" y2="100"></line> -->
 			<path *ngFor="let item of lineData" [attr.id]="item.id" [attr.d]="'M'+treeData[item.start].x+' '+treeData[item.start].y+'L'+treeData[item.end].x+' '+treeData[item.end].y
-       " fill="none" stroke="red" marker-start="url(#arrow)" marker-mid="url(#arrow)" marker-end="url(#arrow)"/>
+       " fill="none" stroke="red" marker-start="url(#arrow)" marker-mid="url(#arrow)" marker-end="url(#arrow)" />
 			<text *ngFor="let item of lineData" y=-10 x="50" font-size="20">
 				<textPath [attr.xlink:href]="'#'+item.id" rel="external nofollow">
 					{{item.text}}
